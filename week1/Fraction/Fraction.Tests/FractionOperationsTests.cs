@@ -15,7 +15,7 @@ namespace Fractions.Tests
             var expectedResult = Fraction.Create(19, 12);
 
             // Act
-            var sum = fractionA.Add(fractionB);
+            var sum = fractionA + fractionB;
 
             // Assert
             Assert.Equal(expectedResult, sum);
@@ -30,7 +30,7 @@ namespace Fractions.Tests
             var expectedResult = Fraction.Create(-19, 12);
 
             // Act
-            var sum = fractionA.Substract(fractionB);
+            var sum = fractionA - fractionB;
 
             // Assert
             Assert.Equal(expectedResult, sum);
@@ -45,7 +45,7 @@ namespace Fractions.Tests
             var expectedResult = Fraction.Create(2425, 4352);
 
             // Act
-            var sum = fractionA.Multiply(fractionB);
+            var sum = fractionA * fractionB;
 
             // Assert
             Assert.Equal(expectedResult, sum);
@@ -60,7 +60,7 @@ namespace Fractions.Tests
             var expectedResult = Fraction.Create(-15, 1);
 
             // Act
-            var sum = fractionA.Divide(fractionB);
+            var sum = fractionA / fractionB;
 
             // Assert
             Assert.Equal(expectedResult, sum);

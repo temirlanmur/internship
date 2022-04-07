@@ -45,14 +45,27 @@
         public override string ToString() => $"{Numerator}/{Denominator}";
         
 
-        // Operations
+        // Operations        
+
+        public static Fraction operator +(Fraction a) => a;
+        
+        public static Fraction operator -(Fraction a) => a.UnaryMinus();
+
+        public static Fraction operator +(Fraction a, Fraction b) => a.Add(b);
+
+        public static Fraction operator -(Fraction a, Fraction b) => a.Substract(b);
+
+        public static Fraction operator *(Fraction a, Fraction b) => a.Multiply(b);
+
+        public static Fraction operator /(Fraction a, Fraction b) => a.Divide(b);
+
 
         /// <summary>
         /// Adds fraction to the current fraction and returns result
         /// </summary>
         /// <param name="fraction">Fraction to add</param>
         /// <returns></returns>
-        public Fraction Add(Fraction fraction)
+        private Fraction Add(Fraction fraction)
         {
             int numerator = this.Numerator * fraction.Denominator + fraction.Numerator * this.Denominator;
             int denominator = this.Denominator * fraction.Denominator;
@@ -67,20 +80,20 @@
         /// </summary>
         /// <param name="fraction">Fraction to substract</param>
         /// <returns></returns>
-        public Fraction Substract(Fraction fraction) => Add(fraction.UnaryMinus());
+        private Fraction Substract(Fraction fraction) => Add(fraction.UnaryMinus());
 
         /// <summary>
         /// Returns fraction that is opposite of the current
         /// </summary>
         /// <returns></returns>
-        public Fraction UnaryMinus() => new Fraction(-_numerator, _denominator);
+        private Fraction UnaryMinus() => new Fraction(-_numerator, _denominator);
 
         /// <summary>
         /// Multiplies current fraction by another and returns result
         /// </summary>
         /// <param name="fraction">Fraction by which to multiply</param>
         /// <returns></returns>
-        public Fraction Multiply(Fraction fraction)
+        private Fraction Multiply(Fraction fraction)
         {
             int numerator = this.Numerator * fraction.Numerator;
             int denominator = this.Denominator * fraction.Denominator;
@@ -97,7 +110,7 @@
         /// <param name="fraction">Fraction by which to divide</param>
         /// <returns></returns>
         /// <exception cref="DivideByZeroException"></exception>
-        public Fraction Divide(Fraction fraction)
+        private Fraction Divide(Fraction fraction)
         {
             if (fraction.Numerator == 0)
                 throw new DivideByZeroException();

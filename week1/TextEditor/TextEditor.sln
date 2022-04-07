@@ -5,7 +5,9 @@ VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextEditorLogic", "TextEditorLogic\TextEditorLogic.csproj", "{D51357A1-C9E1-4944-9B60-B0C83427414D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEditor.Console", "TextEditor.Console\TextEditor.Console.csproj", "{DF4FFE18-4D13-4C3A-B35B-14BC29134DF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextEditor.Console", "TextEditor.Console\TextEditor.Console.csproj", "{DF4FFE18-4D13-4C3A-B35B-14BC29134DF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEditorLogic.Tests", "TextEditorLogic.Tests\TextEditorLogic.Tests.csproj", "{38832F24-7585-418E-A69B-3506276B181B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{DF4FFE18-4D13-4C3A-B35B-14BC29134DF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF4FFE18-4D13-4C3A-B35B-14BC29134DF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF4FFE18-4D13-4C3A-B35B-14BC29134DF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38832F24-7585-418E-A69B-3506276B181B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38832F24-7585-418E-A69B-3506276B181B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38832F24-7585-418E-A69B-3506276B181B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38832F24-7585-418E-A69B-3506276B181B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

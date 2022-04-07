@@ -4,36 +4,36 @@ namespace TextEditorLogic
 {
     public class Application
     {
-        private readonly TextEditor textEditor;
-        private Stack<ICommand> commandHistory;
-        private Stack<ICommand> cancelledCommands;
+        private readonly TextEditor _textEditor;
+        private Stack<ICommand> _commandHistory;
+        private Stack<ICommand> _cancelledCommands;
 
         public Application()
         {
-            textEditor = new();
-            commandHistory = new();
-            cancelledCommands = new();
+            _textEditor = new();
+            _commandHistory = new();
+            _cancelledCommands = new();
         }
         
-        public void MoveCursor(int rowIndex, int colIndex) => ExecuteCommand(new MoveCursorCommand(textEditor, rowIndex, colIndex));  
-        public void InsertChar(char c) => ExecuteCommand(new InsertCharCommand(textEditor, c));
-        public void DeleteChar() => ExecuteCommand(new DeleteCharCommand(textEditor));
+        public void MoveCursor(int rowIndex, int colIndex) => ExecuteCommand(new MoveCursorCommand(_textEditor, rowIndex, colIndex));  
+        public void InsertChar(char c) => ExecuteCommand(new InsertCharCommand(_textEditor, c));
+        public void DeleteChar() => ExecuteCommand(new DeleteCharCommand(_textEditor));
 
         public void Undo()
         {
-            if (commandHistory.Count > 0)
+            if (_commandHistory.Count > 0)
             {
-                var command = commandHistory.Pop();
+                var command = _commandHistory.Pop();
                 command.Undo();
-                cancelledCommands.Push(command);
+                _cancelledCommands.Push(command);
             }
         }
 
         public void Redo()
         {
-            if (cancelledCommands.Count > 0)
+            if (_cancelledCommands.Count > 0)
             {
-                var command = cancelledCommands.Pop();
+                var command = _cancelledCommands.Pop();
                 ExecuteCommand(command);
             }
         }
@@ -41,9 +41,22 @@ namespace TextEditorLogic
         private void ExecuteCommand(ICommand command)
         {
             command.Execute();
-            commandHistory.Push(command);
+            _commandHistory.Push(command);
         }
 
-        public void PrintText() => textEditor.WriteTextToConsole();
+        public void PrintText() => _textEditor.WriteTextToConsole();
+
+        /// <summary>
+        /// For testing purposes only!
+        /// </summary>
+        /// <param name="rowIndex"></param>
+        /// <returns></returns>
+        public string TEST_GetRow(int rowIndex) => _textEditor.GetRow(rowIndex);
+
+        /// <summary>
+        /// For testing purposes only!
+        /// </summary>
+        /// <returns></returns>
+        public string TEST_GetCurrentRow() => _textEditor.GetCurrentRow();        
     }
 }

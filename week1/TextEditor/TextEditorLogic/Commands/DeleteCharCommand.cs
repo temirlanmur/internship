@@ -2,18 +2,26 @@
 {
     public class DeleteCharCommand : BaseCommand, ICommand
     {
-        private readonly string? backupLine;
+        private readonly List<string?> _backup;
 
         public DeleteCharCommand(TextEditor textEditor) : base(textEditor)
         {
-            if (textEditor.RowCount <= textEditor.CursorRowIndex)
-                backupLine = null;
-            else
-                backupLine = textEditor.text[textEditor.CursorRowIndex];
+            _backup = textEditor.GetTextCopy();
         }
 
-        public void Execute() => textEditor.DeleteChar();
+        public void Execute()
+        {
+            var currRow = _textEditor.GetCurrentRow();
+            var currColumnIndex = _textEditor.CurrentColumnIndex;
 
-        public void Undo() => textEditor.text[textEditor.CursorRowIndex] = backupLine;
+            if (string.IsNullOrWhiteSpace(currRow)) return;
+            if (currRow.Length <= currColumnIndex) return;
+            var modified = currRow.Remove(currColumnIndex, 1).Insert(currColumnIndex, " ");
+
+            _textEditor.SetCurrentRow(modified);
+        }
+
+
+        public void Undo() => _textEditor.SetText(_backup);
     }
 }

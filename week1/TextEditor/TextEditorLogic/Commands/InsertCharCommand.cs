@@ -2,21 +2,33 @@
 {
     public class InsertCharCommand : BaseCommand, ICommand
     {
-        private readonly char c;
-        private readonly string? backupLine;
+        private readonly char _c;
+        private readonly List<string?> _backup;
+
         public InsertCharCommand(TextEditor textEditor, char c) : base(textEditor)
         {
-            this.c = c;
-
-            if (textEditor.RowCount <= textEditor.CursorRowIndex)
-                backupLine = null;
-            else
-                backupLine = textEditor.text[textEditor.CursorRowIndex];
+            _c = c;
+            _backup = textEditor.GetTextCopy();
         }
 
-        public void Execute() => textEditor.InsertChar(c);
+        public void Execute()
+        {
+            var currRow = _textEditor.GetCurrentRow();
+            var currColumnIndex = _textEditor.CurrentColumnIndex;
+            string modified;
 
-        public void Undo() => textEditor.text[textEditor.CursorRowIndex] = backupLine;
-        
+            if (string.IsNullOrWhiteSpace(currRow))
+                modified = _c.ToString().AddWhiteSpaceCharsFront(currColumnIndex);
+
+            else if (currRow.Length <= currColumnIndex)
+                modified = currRow + _c.ToString().AddWhiteSpaceCharsFront(currColumnIndex - currRow.Length);
+
+            else
+                modified = currRow.Remove(currColumnIndex, 1).Insert(currColumnIndex, _c.ToString());
+
+            _textEditor.SetCurrentRow(modified);
+        }
+
+        public void Undo() => _textEditor.SetText(_backup);        
     }
 }

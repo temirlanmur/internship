@@ -4,105 +4,82 @@ namespace TextEditorLogic
 {
     public class TextEditor
     {
-        internal List<string?> text = new();        
-        internal int RowCount => text.Count;
-        
-        public int CursorRowIndex { get; internal set; }
-        public int CursorColumnIndex { get; internal set; }
+        private List<string?> _text = new();        
 
+        public int RowCount => _text.Count;
+        public int CurrentRowIndex { get; internal set; }
+        public int CurrentColumnIndex { get; internal set; }
+        
         public TextEditor()            
         {            
-            text.Add(" ");            
-        }        
-
-        internal void MoveCursorTo(int rowIndex, int colIndex)
-        {
-            if (rowIndex < 0 || colIndex < 0)
-                throw new ArgumentException("Indexes cannot be less than 0");
-
-            CursorRowIndex = rowIndex;
-            CursorColumnIndex = colIndex;
+            _text.Add(string.Empty);
         }
 
-        internal void InsertChar(char c)
+        /// <summary>
+        /// Retrieves row at specified index
+        /// </summary>
+        /// <param name="rowIndex"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        internal string GetRow(int rowIndex)
         {
-            if (RowCount <= CursorRowIndex)   // trying to access row that haven't been initialized yet
+            if (rowIndex < 0) 
+                throw new ArgumentOutOfRangeException(nameof(rowIndex));
+
+            if (this.RowCount <= rowIndex)
+                return string.Empty;
+            else
+                return _text[rowIndex]?.TrimEnd() ?? string.Empty;
+        }
+
+        internal string GetCurrentRow() => GetRow(CurrentRowIndex);
+
+        /// <summary>
+        /// Sets specified string at specified row index
+        /// </summary>
+        /// <param name="rowIndex"></param>
+        /// <param name="value"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        internal void SetRow(int rowIndex, string value)
+        {
+            if (rowIndex < 0)
+                throw new ArgumentOutOfRangeException(nameof(rowIndex));
+
+            if (this.RowCount <= rowIndex)
             {
-                var blankRowsNumber = CursorRowIndex - RowCount;
-
-                var blankRows = CreateBlankRows(blankRowsNumber);
-                text.AddRange(blankRows);
-
-                var blankLine = CreateWhiteSpaceStringOfLength(CursorColumnIndex + 1, c);
-                text.Insert(CursorRowIndex, blankLine);
+                AppendBlankLines(rowIndex - RowCount);
+                _text.Insert(rowIndex, value);
             }
             else
-            {
-                var line = text[CursorRowIndex];
-
-                if (line == null)   // Line had been initialized with null
-                {
-                    var blankLine = CreateWhiteSpaceStringOfLength(CursorColumnIndex + 1, c);
-                    text[CursorRowIndex] = blankLine;
-                }
-                else if (line.Length <= CursorColumnIndex) // Line is a string, but it isn't long enough
-                {
-                    var remainingString = CreateWhiteSpaceStringOfLength(CursorColumnIndex - line.Length + 1, c);
-                    text[CursorRowIndex] = line + remainingString;
-                }
-                else
-                {
-                    line = line.Insert(CursorColumnIndex, c.ToString());
-                    line = line.Remove(CursorColumnIndex + 1);
-                    text[CursorRowIndex] = line;
-                }
-            }
+                _text[rowIndex] = value;
         }
-
-        internal void DeleteChar()
-        {
-            if (RowCount <= CursorRowIndex) return;
-            var line = text[CursorRowIndex];
-
-            if (line == null || line.Length <= CursorColumnIndex) return;
-
-            var sb = new StringBuilder(line);
-            sb[CursorColumnIndex] = ' ';
-            text[CursorRowIndex] = sb.ToString();
-        }
+        
+        internal void SetCurrentRow(string value) => SetRow(CurrentRowIndex, value);
 
         /// <summary>
-        /// Returns IEnumerable of nulls of specified length.
+        /// Returns current copy of the text
         /// </summary>
-        /// <param name="blankRowsNumber"></param>
         /// <returns></returns>
-        private static IEnumerable<string?> CreateBlankRows(int blankRowsNumber)
-        {
-            var blankRows = new List<string?>();
-
-            for (var i = 0; i < blankRowsNumber; i++)
-            {
-                blankRows.Add(null);
-            }
-            
-            return blankRows;
-        }        
+        internal List<string?> GetTextCopy()
+            => _text.Select(line => string.IsNullOrWhiteSpace(line) ? null : new string(line)).ToList();
 
         /// <summary>
-        /// Returns a string of specified length, consisting of only white space characters except for the last character.        
+        /// Sets the text to the specified parameter
         /// </summary>
-        /// <param name="length"></param>
-        /// <param name="lastCharacter"></param>
-        /// <returns></returns>
-        private static string CreateWhiteSpaceStringOfLength(int length, char lastCharacter)
+        /// <param name="text"></param>
+        internal void SetText(List<string?> text) => _text = text;
+
+        private void AppendBlankLines(int blankLinesNumber)
         {
-            var result = new string(' ', length - 1);
-            return result + lastCharacter;
+            var blankLines = new List<string?>();
+            for (var i = 0; i < blankLinesNumber; i++)
+                blankLines.Add(null);
+            _text.AddRange(blankLines);
         }
 
         public void WriteTextToConsole()
         {
-            foreach(var line in text)
+            foreach(var line in _text)
                 Console.WriteLine(line);
         }
     }

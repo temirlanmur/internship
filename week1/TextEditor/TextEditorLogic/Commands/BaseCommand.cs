@@ -2,8 +2,8 @@
 {
     public class BaseCommand
     {
-        protected readonly TextEditor textEditor;        
+        protected readonly TextEditor _textEditor;        
 
-        public BaseCommand(TextEditor textEditor) => this.textEditor = textEditor;        
+        public BaseCommand(TextEditor textEditor) => _textEditor = textEditor;        
     }
 }

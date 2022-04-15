@@ -19,7 +19,21 @@ internal class Program
     static Barrier barrier13 = new Barrier(6);    
 
     static void Main()
-    {        
+    {
+        // Test to check if the instance is already running
+        if (
+            System.Diagnostics.Process.GetProcessesByName(
+                Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)
+                )
+                .Count() > 1
+            )
+        {
+            Console.WriteLine("The app is already working");
+            return;
+        }            
+        
+        //Thread.Sleep(5000); - To test if running two instances is allowed
+
         Thread[] threads = new Thread[6];
 
         threads[2] = new Thread(() => 

@@ -114,12 +114,9 @@ namespace Downloader
                     var imageUrl = imageInfo["thumbnailUrl"].ToString();
                     var imageFileName = imageInfo["id"].ToString() + ".png";
                     var imageFileFullName = Path.Combine(imagesFolderPath, imageFileName);
-
-                    lock (_locker)
-                    {                        
-                        client.DownloadFile(imageUrl, imageFileFullName);
-                        Console.WriteLine($"Image {imageFileName} downloaded");
-                    }                    
+                                        
+                    client.DownloadFile(imageUrl, imageFileFullName);
+                    Console.WriteLine($"Image {imageFileName} downloaded");                                        
                 }
                 catch (Exception ex)
                 {

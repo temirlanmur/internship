@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeTraverser", "TreeTraverser\TreeTraverser.csproj", "{6E1B69C6-BFF6-4A60-8C90-E22C01FA2CB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.csproj", "{C27F63DF-ABDB-4880-A884-BF5B3F165708}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6E1B69C6-BFF6-4A60-8C90-E22C01FA2CB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E1B69C6-BFF6-4A60-8C90-E22C01FA2CB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E1B69C6-BFF6-4A60-8C90-E22C01FA2CB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E1B69C6-BFF6-4A60-8C90-E22C01FA2CB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C27F63DF-ABDB-4880-A884-BF5B3F165708}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C27F63DF-ABDB-4880-A884-BF5B3F165708}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C27F63DF-ABDB-4880-A884-BF5B3F165708}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C27F63DF-ABDB-4880-A884-BF5B3F165708}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3475DAEF-A49F-4C36-83C8-1EACE315C09E}
+	EndGlobalSection
+EndGlobal
